@@ -1,6 +1,35 @@
-# okeanos
+# User documentation for Okeanos
+
+[Okeanos](https://okeanos.dev/) is a fully-managed service based on Gardener
+to deliver Kubernetes clusters at scale everywhere, currently in public beta.
+
+[Login to the dashboard](https://dashboard.okeanos.dev) is possible with your
+existing GitHub account. After the first login a new project will be
+automatically created for you. Please reload the dashboard after a few seconds
+to see this project. You can then add your credentials for the cloud to be used
+and create Kubernetes clusters that will use virtual machines in that cloud
+account, and we provide and manage the Kubernetes Control Plane on our own
+infrastructure.
+
+The clouds currently available are AWS, GCP, Azure, Hetzner Cloud, Fugacloud,
+Betacloud and CityCloud. We are currently working on support for IONOS and OVH.
+During the public beta, the only cost for using Okeanos is the cost on your
+own cloud account, charged directly by the cloud provider.
+
+We do not ask for payment information and will not charge you for the control
+plane of the managed Kubernetes clusters. The service and support is offered
+on a best effort basis for free accounts until further notice.
+
+During the public beta, the only cost for using Okeanos is the cost on your
+own cloud account, charged directly by the cloud provider. We do not ask for
+payment information and will not charge you for the control plane of the
+managed Kubernetes clusters. The service and support is offered on a best
+effort basis for free accounts until further notice.
 
 ## Hetzner Cloud
+
+The following describes how a [Hetzner Cloud](https://www.hetzner.com/de/cloud)
+project is integrated into Okeanos.
 
 * Login to the [Hetzner Cloud Console](https://console.hetzner.cloud/projects), click the
   ``NEUES PROJEKT`` button and create a new project, e.g. with the name ``okeanos-rocks``.
