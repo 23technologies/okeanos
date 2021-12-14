@@ -20,12 +20,6 @@ We do not ask for payment information and will not charge you for the control
 plane of the managed Kubernetes clusters. The service and support is offered
 on a best effort basis for free accounts until further notice.
 
-During the public beta, the only cost for using Okeanos is the cost on your
-own cloud account, charged directly by the cloud provider. We do not ask for
-payment information and will not charge you for the control plane of the
-managed Kubernetes clusters. The service and support is offered on a best
-effort basis for free accounts until further notice.
-
 ## Hetzner Cloud
 
 The following describes how a [Hetzner Cloud](https://www.hetzner.com/de/cloud)
