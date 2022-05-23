@@ -65,3 +65,26 @@ project is integrated into Okeanos.
 * Now a new cluster can be created on the Hetzner Cloud.
 
 ![Create new cluster](/images/dashboard-clusters-create.png)
+
+## Grafana
+
+The provided Grafana is stateless and therefore has the flaw of not
+beeing able to save settings. For example marking a dashboard as a
+favorite is impossible.
+
+* Once you've opened a dashboard and return to the dashboards overview,
+you'll see in *Recently viewed dashboards*. Try to add it to favorites.
+
+![Dashboard overview](/images/grafana/grafana_error_try_to_add_favorite.png)
+
+* You'll get an error pop-up stating you are *Unauthorized*
+
+![Error](/images/grafana/grafana_error_unauthorized_notification.png)
+
+* Now try to open any dashboard (or any other function actually)
+
+![Try opening a dashboard again](/images/grafana/grafana_error_click_on_dashboard_again.png)
+
+* Grafana requires you to login again.
+
+![Login required](/images/grafana/grafana_error_login_required.png)
