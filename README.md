@@ -88,3 +88,85 @@ you'll see in *Recently viewed dashboards*. Try to add it to favorites.
 * Grafana requires you to login again.
 
 ![Login required](/images/grafana/grafana_error_login_required.png)
+
+## Programmatic shoot creation
+
+If you want to create clusters trough applications, you can do this via
+a custom resource definition of type *shoot* trough kubernetes.
+To gain access to the gardener API which creates shoots, you have
+to create a service account from the web dashboard.
+
+![Create new Service Account](/images/dashboard-members-create-service-account.png)
+
+From here you can also view or download the kubernetes config file.
+Once your *kubectl* or other tool is configured to use the new config
+file, you can simple apply the resource, e.g.
+
+`kubectl apply -f cluster.yaml`
+
+**cluster.yaml** example for [Betacloud](https://www.betacloud.de/)
+
+```yaml
+kind: Shoot
+apiVersion: core.gardener.cloud/v1beta1
+metadata:
+  name: my-cluster-name
+  namespace: garden-<your_project_name>
+spec:
+  cloudProfileName: betacloud
+  hibernation:
+    enabled: false
+    schedules:
+      - start: '00 17 * * 1,2,3,4,5'
+        end: '00 08 * * 1,2,3,4,5'
+        location: Europe/Berlin
+  kubernetes:
+    version: 1.22.9
+  networking:
+    type: cilium
+    pods: 100.73.0.0/16
+    nodes: 10.250.0.0/16
+    services: 100.88.0.0/13
+  provider:
+    type: openstack
+    controlPlaneConfig:
+      apiVersion: openstack.provider.extensions.gardener.cloud/v1alpha1
+      kind: ControlPlaneConfig
+      loadBalancerProvider: amphora
+    infrastructureConfig:
+      apiVersion: openstack.provider.extensions.gardener.cloud/v1alpha1
+      floatingPoolName: external
+      kind: InfrastructureConfig
+      networks:
+        workers: 10.250.0.0/16
+    workers:
+      - cri:
+          name: containerd
+        name: worker-small
+        machine:
+          type: 2C-4GB-40GB
+          image:
+            name: gardenlinux
+            version: 576.1.0
+        maximum: 2
+        minimum: 1
+        maxSurge: 1
+        maxUnavailable: 0
+        volume:
+          size: 50Gi
+  purpose: development
+  region: betacloud-1
+  secretBindingName: betacloud-secret
+```
+
+Keep in mind, that some things need to be changed accordingly.
+Here are at least a few explanations of the bare minimum possible.
+
+* **metadata.name**: The name you desire for the new cluster, must be unique in project
+* **metadata.namespace**: your project name with a *garden-* prefix
+* **spec.cloudProfileName**: Name of the cloud you want your cluster to be created on
+* **spec.networking.type**: *calico* or *cilium* currently
+* **spec.provider.type**: Type of cloud (AWS, Openstack, etc.)
+* **spec.provider.workers[0].machine.type**: Flavor of your worker nodes
+* **spec.purpose**: Purpose of the new kubernetes cluster
+* **spec.secretBindingName**: The secret to use when connecting to the cloud
